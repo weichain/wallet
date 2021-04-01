@@ -30,39 +30,39 @@
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
-import { mapState } from "vuex";
-import { parseSeedPhrase } from "near-seed-phrase";
-import { KeyPair } from "near-api-js";
+import NavBar from '@/components/NavBar.vue'
+import { mapState } from 'vuex'
+import { parseSeedPhrase } from 'near-seed-phrase'
+import { KeyPair } from 'near-api-js'
 
 export default {
   components: {
     NavBar
   },
-  props: ["fundingAddress"],
+  props: ['fundingAddress'],
   computed: {
-    ...mapState(["wallets", "activeWalletId"]),
-    wallet: function() {
-      return this.wallets.find(wallet => wallet.id === this.activeWalletId);
+    ...mapState(['wallets', 'activeWalletId']),
+    wallet: function () {
+      return this.wallets.find(wallet => wallet.id === this.activeWalletId)
     },
-    seedList: function() {
-      return this.wallet.mnemonic;
+    seedList: function () {
+      return this.wallet.mnemonic
     },
-    generateAddress: function() {
-      const { secretKey } = parseSeedPhrase(this.seedList, "m/44'/397'/0'");
-      const keyPair = KeyPair.fromString(secretKey);
+    generateAddress: function () {
+      const { secretKey } = parseSeedPhrase(this.seedList, "m/44'/397'/0'")
+      const keyPair = KeyPair.fromString(secretKey)
       const implicitAccountId = Buffer.from(keyPair.publicKey.data).toString(
-        "hex"
-      );
-      return implicitAccountId;
+        'hex'
+      )
+      return implicitAccountId
     }
   },
   methods: {
-    async copy(text) {
-      await navigator.clipboard.writeText(text);
+    async copy (text) {
+      await navigator.clipboard.writeText(text)
     }
   }
-};
+}
 </script>
 
 <style lang="scss">

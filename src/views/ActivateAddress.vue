@@ -55,30 +55,30 @@
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
+import NavBar from '@/components/NavBar.vue'
 
 export default {
   components: {
     NavBar
   },
-  data() {
+  data () {
     return {
       name: null
-    };
+    }
   },
   computed: {
-    canCreate() {
-      return false;
+    canCreate () {
+      return false
     }
   },
   methods: {
-    async createAccount() {
+    async createAccount () {
       this.$router.replace(
-        "/fund-address/aa4f186f48e9261fcb5d49b0be5a82faff9ce8b2c4abf595d096d1eb6063d670"
-      );
+        '/fund-address/aa4f186f48e9261fcb5d49b0be5a82faff9ce8b2c4abf595d096d1eb6063d670'
+      )
     }
   }
-};
+}
 </script>
 
 <style lang="scss">
