@@ -1,20 +1,22 @@
 <template>
-   <div v-if="networkWalletBalances">
-       <ListItem v-for="([asset, balance]) in orderedBalances"
-                 :key="asset"
-                 :to="'/account/' + asset">
-          <template #icon>
-            <img :src="getAssetIcon(asset)" class="asset-icon" />
-          </template>
-          {{ getAssetName(asset) }}
-          <template #detail>
-            {{ prettyBalance(balance, asset) }} {{asset}}
-          </template>
-          <template #detail-sub v-if="fiatRates[asset]">
-            ${{prettyFiat(balance, asset)}}
-          </template>
-      </ListItem>
-   </div>
+  <div v-if="networkWalletBalances">
+    <ListItem
+      v-for="[asset, balance] in orderedBalances"
+      :key="asset"
+      :to="createDetailsAssetLink(asset)"
+    >
+      <template #icon>
+        <img :src="getAssetIcon(asset)" class="asset-icon" />
+      </template>
+      {{ getAssetName(asset) }}
+      <template #detail>
+        {{ prettyBalance(balance, asset) }} {{ asset }}
+      </template>
+      <template #detail-sub v-if="fiatRates[asset]">
+        ${{ prettyFiat(balance, asset) }}
+      </template>
+    </ListItem>
+  </div>
 </template>
 
 <script>
@@ -29,8 +31,8 @@ export default {
     ListItem
   },
   computed: {
-    ...mapState(['fiatRates']),
-    ...mapGetters(['orderedBalances', 'networkWalletBalances'])
+    ...mapState(['fiatRates', 'activeNetwork', 'activeWalletId']),
+    ...mapGetters(['orderedBalances', 'networkWalletBalances', 'client'])
   },
   methods: {
     getAssetIcon,
@@ -41,11 +43,17 @@ export default {
     },
     getAssetName (asset) {
       return cryptoassets[asset] ? cryptoassets[asset].name : asset
+    },
+
+    createDetailsAssetLink (asset) {
+      if (asset === 'NEAR') {
+        return '/activate-address'
+      }
+
+      return '/account/' + asset
     }
   }
 }
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

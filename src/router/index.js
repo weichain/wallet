@@ -13,6 +13,8 @@ import TransactionDetails from '@/views/Details/TransactionDetails.vue'
 import Send from '@/views/Send.vue'
 import Receive from '@/views/Receive.vue'
 import Swap from '@/views/Swap.vue'
+import ActivateAddress from '@/views/ActivateAddress.vue'
+import FundAddress from '@/views/FundAddress.vue'
 
 import Settings from '@/views/Settings'
 import ManageAssets from '@/views/ManageAssets'
@@ -124,6 +126,18 @@ const routes = [
   {
     path: '/account/:routeAsset/swap',
     component: Swap,
+    props: true
+  },
+
+  // Activate Address
+  {
+    path: '/activate-address',
+    component: ActivateAddress,
+    props: true
+  },
+  {
+    path: '/fund-address/:fundingAddress',
+    component: FundAddress,
     props: true
   },
 
